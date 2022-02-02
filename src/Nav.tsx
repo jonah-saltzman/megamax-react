@@ -1,19 +1,17 @@
 import React, { useContext } from "react";
 import {
+    Button,
 	Navbar
 } from 'react-bootstrap'
-import { AppContext } from "./context/AppContext";
 
 const Nav = () => {
-    const { state, dispatch } = useContext(AppContext)
-    const printState = () => {
-        console.log(state)
-    }
     return (
-			<Navbar onClick={printState} sticky='top' className='nav'>
+			<Navbar sticky='top' className='nav'>
 				<Navbar.Brand className='text-white navbrand'>
-					MegaMax Tic-Tac-Toe
+					<span className='mega'>Mega</span>Max{' '}
+					<span className='subhead'>Tic-Tac-Toe</span>
 				</Navbar.Brand>
+				<Button className='button nav-right'>Login</Button>
 			</Navbar>
 		)
 }

@@ -10,4 +10,4 @@ const initialState: StateInterface = {
 export const AppContext = createContext<{
 	state: StateInterface
 	dispatch: React.Dispatch<any>
-}>({ state: initialState, dispatch: () => null })
+}>({ state: initialState, dispatch: (): void => null })
