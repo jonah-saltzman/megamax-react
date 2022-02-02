@@ -11,5 +11,5 @@ export const defaultGame: GameInterface = {
 	winner: null,
 	moves: 0,
 	easy: null,
-	small: true,
+	size: 'small',
 }

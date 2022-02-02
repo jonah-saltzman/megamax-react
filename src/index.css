@@ -54,3 +54,7 @@ body {
   letter-spacing: 2px;
   z-index: 3;
 }
+
+.game {
+    flex-direction: column;
+}

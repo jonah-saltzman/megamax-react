@@ -11,7 +11,7 @@ interface GameInterface {
 	winner: Player
 	moves: number
 	easy: boolean
-	small: boolean
+	size: BoardSize
 }
 
 interface StateInterface {
@@ -21,6 +21,12 @@ interface StateInterface {
 
 type Player = 'x' | 'o'
 
+type BoardSize = 'small' | 'large'
+
 type Action =
 	| { type: 'SET_AUTH'; payload: AuthInterface }
 	| { type: 'SET_GAME'; payload: GameInterface }
+
+interface BoardOpts {
+    size: BoardSize
+}
