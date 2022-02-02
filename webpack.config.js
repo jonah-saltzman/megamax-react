@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-	entry: '/src/index.js',
+	entry: '/src/index.tsx',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 	},
@@ -12,7 +12,7 @@ module.exports = {
 		},
 		compress: true,
 		port: 9000,
-        open: true
+		open: true,
 	},
 	module: {
 		rules: [
@@ -28,8 +28,16 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				include: path.resolve(__dirname, 'src'),
+				include: [
+					path.resolve(__dirname, 'src'),
+					path.resolve(__dirname, 'node_modules/react-toastify/dist'),
+				],
 				use: ['style-loader', 'css-loader'],
+			},
+			{
+				test: /\.tsx?$/,
+				exclude: /node_modules/,
+				use: 'ts-loader',
 			},
 		],
 	},
@@ -38,4 +46,7 @@ module.exports = {
 			template: './src/index.html',
 		}),
 	],
+	resolve: {
+		extensions: ['.ts', '.tsx', '.js', '.jsx'],
+	},
 }
