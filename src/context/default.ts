@@ -13,3 +13,15 @@ export const defaultGame: GameInterface = {
 	easy: null,
 	size: 'small',
 }
+
+export const defaultBoard: Board = [
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+]

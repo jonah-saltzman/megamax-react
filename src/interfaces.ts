@@ -14,12 +14,15 @@ interface GameInterface {
 	size: BoardSize
 }
 
+type BoardState = Array<Player>
+
 interface StateInterface {
 	auth: AuthInterface
 	game: GameInterface
+    board: Board
 }
 
-type Player = 'x' | 'o'
+type Player = 'x' | 'o' | null
 
 type BoardSize = 'small' | 'large'
 
@@ -30,3 +33,21 @@ type Action =
 interface BoardOpts {
     size: BoardSize
 }
+
+interface Borders {
+    top: boolean
+    right: boolean
+    bottom: boolean
+    left: boolean
+}
+
+interface SpaceProps {
+    winPos: boolean
+    player: Player
+    position: number
+    click: Function
+}
+
+type Board = Array<Player>
+
+type R = Array<JSX.Element>

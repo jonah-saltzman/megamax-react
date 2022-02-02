@@ -31,6 +31,7 @@ module.exports = {
 				include: [
 					path.resolve(__dirname, 'src'),
 					path.resolve(__dirname, 'node_modules/react-toastify/dist'),
+					path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.min.css'),
 				],
 				use: ['style-loader', 'css-loader'],
 			},

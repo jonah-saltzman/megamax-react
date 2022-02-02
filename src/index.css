@@ -19,6 +19,7 @@ body {
     height: 10vh;
     align-items: center;
     justify-content: space-between;
+    min-height: 70px;
 }
 
 .navbrand {
@@ -34,7 +35,7 @@ body {
 }
 
 .mega {
-    color: white;
+    color: rgb(31, 45, 172)
 }
 
 .subhead {
@@ -57,4 +58,28 @@ body {
 
 .game {
     flex-direction: column;
+}
+
+.col {
+    padding: 0;
+}
+
+/* .small .space {
+    font-size: 1.5rem;
+    width: 33%;
+}
+
+.small .space::after{
+  content: "";
+  display: block;
+  padding-bottom: 166%;
+} */
+
+.small {
+    width: 50vw;
+    border: 1px red solid;
+}
+
+.space {
+    border: 1px black solid;
 }

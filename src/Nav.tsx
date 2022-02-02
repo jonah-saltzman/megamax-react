@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { toast } from "react-toastify";
 import {
     Button,
 	Navbar
 } from 'react-bootstrap'
+import { AppContext } from "./context/AppContext";
 
 const Nav = () => {
+    const { state, dispatch } = useContext(AppContext)
     const demoToast = () => {
         toast('Login disabled in Demo Mode')
+        console.log(state.board)
     }
     return (
 			<Navbar sticky='top' className='nav'>
