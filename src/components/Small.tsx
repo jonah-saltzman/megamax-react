@@ -11,7 +11,7 @@ const Small = () => {
     const board = state.board
 
     const click = (pos: number) => {
-        if (board[pos]) {
+        if (board[pos] || state.game.over) {
             return
         }
         const newBoard = [...board]

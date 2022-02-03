@@ -40,19 +40,15 @@ export const borderClass = (borders: Borders): string => {
 export const smallMap = (options: SpaceProps, i: number) => {
     const { borders } = options
     if (i % 3 === 0) {
-        console.log('NO LEFT')
         borders.left = false
     }
     if (i % 3 === 2) {
-        console.log('NO RIGHT')
         borders.right = false
     }
     if (i < 3) {
-        console.log('NO TOP')
         borders.top = false
     }
     if (i > 5) {
-        console.log('NO BOTTOM')
         borders.bottom = false
     }
     const props = {...options, borders: {...borders}}
