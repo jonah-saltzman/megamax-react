@@ -29,6 +29,7 @@ type BoardSize = 'small' | 'large'
 type Action =
 	| { type: 'SET_AUTH'; payload: AuthInterface }
 	| { type: 'SET_GAME'; payload: GameInterface }
+	| { type: 'SET_BOARD'; payload: Board }
 
 interface BoardOpts {
     size: BoardSize
@@ -46,6 +47,9 @@ interface SpaceProps {
     player: Player
     position: number
     click: Function
+    borders: Borders
+    size: BoardSize
+    // draw: boolean
 }
 
 type Board = Array<Player>

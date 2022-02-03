@@ -5,8 +5,8 @@ export const defaultAuth: AuthInterface = {
 }
 
 export const defaultGame: GameInterface = {
-	started: false,
-	turn: null,
+	started: true,
+	turn: 'x',
 	over: false,
 	winner: null,
 	moves: 0,

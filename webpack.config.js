@@ -32,6 +32,8 @@ module.exports = {
 					path.resolve(__dirname, 'src'),
 					path.resolve(__dirname, 'node_modules/react-toastify/dist'),
 					path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.min.css'),
+                    path.resolve(__dirname, 'node_modules/react-grid-layout/css/styles.css'),
+                    path.resolve(__dirname, 'node_modules/react-resizable/css/styles.css')
 				],
 				use: ['style-loader', 'css-loader'],
 			},

@@ -1,36 +1,40 @@
-import React, { useContext, FC } from "react";
-import Space from "./Space";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
-import { Container, Row, Col } from "react-bootstrap";
+import { genSpaces, smallMap } from "../helpers";
+import { SET_BOARD, SET_GAME } from "../context/action-types";
 
 const Small = () => {
     const { state, dispatch } = useContext(AppContext)
-    const style = {border: '1px black solid'}
+    const [ spaceObjs, setSpaceObjs ] = useState<Array<SpaceProps>>(null)
+    const [ spaceJsx, setSpaceJsx ] = useState<R>([])
+    const { turn } = state.game
+    const board = state.board
+
     const click = (pos: number) => {
-        console.log('clickd: ', pos)
-        return
+        if (board[pos]) {
+            return
+        }
+        const newBoard = [...board]
+        const newGame = {...state.game, turn: turn === 'x' ? 'o' : 'x'}
+        newBoard[pos] = turn
+        dispatch({type: SET_BOARD, payload: newBoard})
+        dispatch({type: SET_GAME, payload: newGame})
     }
-    const spaces = state.board.map((player, i) => (
-			<Space key={'small-' + i} click={click} player={player} position={i} winPos={false} />
-		))
-    const rows: Array<R> = [[], [], []]
-    let i = 0
-    for (const space of spaces) {
-        rows[i].push(<Col>{space}</Col>)
-        i = i === 2 ? 0 : i + 1
-    }
+    useEffect(() => {
+        setSpaceObjs(genSpaces(state.board, 'small', click))
+    }, [state.board])
+
+    useEffect(() => {
+        if (!spaceObjs) {
+            return
+        }
+        console.log(spaceObjs)
+        setSpaceJsx(spaceObjs.map((obj, i) => smallMap(obj, i)))
+    }, [spaceObjs])
     return (
-			<Container className='small'>
-				<Row>
-					{rows[0]}
-				</Row>
-				<Row>
-					{rows[1]}
-				</Row>
-				<Row>
-					{rows[2]}
-				</Row>
-			</Container>
+			<div className='small'>
+				{spaceJsx}
+			</div>
 		)
 }
 

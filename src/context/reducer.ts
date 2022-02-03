@@ -1,9 +1,10 @@
 import {
     SET_AUTH,
+    SET_BOARD,
     SET_GAME,
 } from './action-types'
 
-import { defaultGame, defaultAuth } from './default'
+import { defaultGame, defaultAuth, defaultBoard } from './default'
 
 export default (state: StateInterface, action: Action): StateInterface => {
 	switch (action.type) {
@@ -15,6 +16,10 @@ export default (state: StateInterface, action: Action): StateInterface => {
             return action.payload === null
                 ? { ...state, game: defaultGame }
                 : { ...state, game: action.payload}
+        case SET_BOARD:
+            return action.payload === null
+                ? { ...state, board: defaultBoard}
+                : { ...state, board: action.payload}
 		default:
 			return state
 	}

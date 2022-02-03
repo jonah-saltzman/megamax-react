@@ -56,30 +56,66 @@ body {
   z-index: 3;
 }
 
-.game {
-    flex-direction: column;
-}
-
 .col {
     padding: 0;
 }
 
-/* .small .space {
-    font-size: 1.5rem;
-    width: 33%;
+.space {
+	border: 0.2rem solid #6c757d;
+	outline: none;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+.space:hover {
+    background: #0d6dfda9;
+	color: white;
 }
 
-.small .space::after{
-  content: "";
-  display: block;
-  padding-bottom: 166%;
-} */
+.top {
+    border-top: 0;
+}
+
+.right {
+    border-right: 0;
+}
+
+.bottom {
+    border-bottom: 0;
+}
+
+.left {
+    border-left: 0;
+}
+
+.top.left {
+    border-radius: 3rem 0 0 0;
+}
+
+.top.right {
+    border-radius: 0 3rem 0 0;
+}
+
+.bottom.right {
+    border-radius: 0 0 3rem 0;
+}
+
+.bottom.left {
+    border-radius: 0 0 0 3rem;
+}
 
 .small {
-    width: 50vw;
-    border: 1px red solid;
-}
-
-.space {
-    border: 1px black solid;
+	border-radius: 25rem;
+	width: 40vw;
+    height: calc(40vw);
+	margin: 0 auto;
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    padding: 0;
+    margin-top: 5vh;
+    font-size: 8rem;
+	font-weight: 400;
+    line-height: 9rem;
 }

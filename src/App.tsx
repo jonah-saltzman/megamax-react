@@ -21,9 +21,9 @@ const App = () => {
 		<AppContext.Provider value={{ state, dispatch }}>
             <ToastContainer />
 			<Nav />
-            <Container className='game'>
+            <div className='game'>
                 <Game />
-            </Container>
+            </div>
 		</AppContext.Provider>
 	)   
 }

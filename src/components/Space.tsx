@@ -1,8 +1,11 @@
-import React, { FC } from 'react'
+import React from 'react'
+import { borderClass } from '../helpers'
 
 const Space = (props: SpaceProps) => {
+    const { click, position, borders, size, player } = props
+    const classes = borderClass(borders) + ' space'
 	return (
-        <div onClick={() => props.click(props.position)} className='space'>{props.position}</div>
+        <div onClick={() => click(position)} className={classes}>{player}</div>
     )
 }
 
