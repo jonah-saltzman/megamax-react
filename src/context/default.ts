@@ -12,6 +12,8 @@ export const defaultGame: GameInterface = {
 	moves: 0,
 	easy: null,
 	size: 'small',
+    pvp: true,
+    draw: false
 }
 
 export const defaultBoard: Board = [

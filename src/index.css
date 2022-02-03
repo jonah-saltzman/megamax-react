@@ -119,3 +119,15 @@ body {
 	font-weight: 400;
     line-height: 9rem;
 }
+
+.green {
+    background-color: rgba(19, 219, 19, 0.657);
+}
+
+.red {
+    background-color: rgba(255, 87, 87, 0.657);
+}
+
+.draw {
+    background-color: rgba(224, 224, 224, 0.657);
+}

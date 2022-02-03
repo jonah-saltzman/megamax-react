@@ -12,6 +12,8 @@ interface GameInterface {
 	moves: number
 	easy: boolean
 	size: BoardSize
+    pvp: boolean,
+    draw: boolean
 }
 
 type BoardState = Array<Player>
@@ -49,9 +51,16 @@ interface SpaceProps {
     click: Function
     borders: Borders
     size: BoardSize
-    // draw: boolean
+    pvp: boolean
+    draw: boolean
 }
 
 type Board = Array<Player>
 
 type R = Array<JSX.Element>
+
+interface Results {
+    over: boolean
+    winner: Player
+    wins: Array<Array<number>>
+}

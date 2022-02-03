@@ -8,7 +8,7 @@ const defaultBorders = {
     left: true
 }
 
-export const genSpaces = (board: Board, size: BoardSize, click: Function): Array<SpaceProps> => {
+export const genSpaces = (board: Board, size: BoardSize, click: Function, pvp: boolean, draw: boolean): Array<SpaceProps> => {
     return board.map((player, i) => ({
         key: (size === 'small' ? 's-' : 'l-') + i.toString(10),
         player,
@@ -16,11 +16,13 @@ export const genSpaces = (board: Board, size: BoardSize, click: Function): Array
         winPos: false,
         click,
         borders: {...defaultBorders},
-        size
+        size,
+        pvp,
+        draw
     }))
 }
 
-export const borderClass = (borders: Borders): string => {
+export const borderClasses = (borders: Borders, size: BoardSize): string => {
     const classes = []
     if (!borders.top) {
         classes.push('top')
@@ -66,6 +68,40 @@ const smallConditions = [
 	[2, 4, 6],
 ]
 
-export const gameOver = () => {
+const bigConditions = [
+	[0, 1, 2, 3, 4],
+	[5, 6, 7, 8, 9],
+	[10, 11, 12, 13, 14],
+	[15, 16, 17, 18, 19],
+	[20, 21, 22, 23, 24],
+	[0, 5, 10, 15, 20],
+	[1, 6, 11, 16, 21],
+	[2, 7, 12, 17, 22],
+	[3, 8, 13, 18, 23],
+	[4, 9, 14, 19, 24],
+	[0, 6, 12, 18, 24],
+	[4, 8, 12, 16, 20],
+]
 
+export const gameOver = (board: Board, size: BoardSize): Results => {
+    const conditions = size === 'small' ? smallConditions : bigConditions
+    const results: Results = {
+        over: false,
+        winner: null,
+        wins: []
+    }
+    conditions.forEach(condition => {
+        if (
+					board[condition[0]] &&
+					condition.every((space) => board[space] === board[condition[0]])
+				) {
+					results.winner = board[condition[0]]
+                    results.wins.push(condition)
+                    results.over = true
+				}
+    })
+    if (board.every(pos => pos)) {
+        results.over = true
+    }
+    return results
 }
