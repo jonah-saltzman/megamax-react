@@ -8,6 +8,10 @@ const defaultBorders = {
     left: true
 }
 
+export const getMoves = (board: Board) => {
+
+}
+
 export const genSpaces = (board: Board, size: BoardSize, click: Function, pvp: boolean, draw: boolean): Array<SpaceProps> => {
     return board.map((player, i) => ({
         key: (size === 'small' ? 's-' : 'l-') + i.toString(10),
