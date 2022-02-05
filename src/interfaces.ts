@@ -48,11 +48,22 @@ interface SpaceProps {
     winPos: boolean
     player: Player
     position: number
-    click: Function
+    click: Function | null
     borders: Borders
     size: BoardSize
     pvp: boolean
     draw: boolean
+}
+
+interface OptHandlers {
+	reset: Function
+	started: boolean
+	opts: Options
+}
+
+interface Options {
+    mode: Mode
+    size: BoardSize
 }
 
 type Board = Array<Player>
@@ -63,4 +74,12 @@ interface Results {
     over: boolean
     winner: Player
     wins: Array<Array<number>>
+    started: boolean
 }
+
+interface Move {
+    player: Player
+    position: number
+}
+
+type Mode = 'pvp' | 'ai'

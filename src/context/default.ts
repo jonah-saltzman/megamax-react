@@ -16,7 +16,35 @@ export const defaultGame: GameInterface = {
     draw: false
 }
 
-export const defaultBoard: Board = [
+export const defaultSmallBoard: Board = [
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+]
+
+export const defaultLargeBoard: Board = [
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
 	null,
 	null,
 	null,

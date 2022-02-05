@@ -1,66 +1,76 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AppContext } from "../context/AppContext";
-import { genSpaces, smallMap, gameOver } from "../helpers";
-import { SET_BOARD, SET_GAME } from "../context/action-types";
+import { genSpaces, smallMap, gameOver, blankBoard, toArray } from "../helpers";
+import Options from "./Options";
+import { defaultSmallBoard, defaultLargeBoard } from "../context/default";
+import Space from "./Space";
+
+const defaultStatus: Results = { over: false, winner: null, wins: [[]], started: false }
 
 const Small = () => {
-    const { state, dispatch } = useContext(AppContext)
-    const [ spaceObjs, setSpaceObjs ] = useState<Array<SpaceProps>>(null)
-    const [ spaceJsx, setSpaceJsx ] = useState<R>([])
-    const { turn } = state.game
-    const board = state.board
+    const [ board, setBoard ] = useState<Array<SpaceProps>>(null)
+    const [ size, setSize ] = useState<BoardSize>('small')
+    const [ mode, setMode ] = useState<Mode>('pvp')
+    const [ player, setPlayer ] = useState<Player>('x')
+    const [ gameStatus, setStatus ] = useState<Results>(defaultStatus)
+
+    useEffect(() => {
+        reset()
+    }, [])
+
+    const reset = () => {
+        setBoard(blankBoard(size, mode))
+        setPlayer('x')
+        setStatus(defaultStatus)
+    }
+
+    const makeMove = (pos: number) => {
+        const tempBoard = [...board]
+        tempBoard[pos].player = player
+        const status = gameOver(toArray(tempBoard, size), size)
+        const newBoard: Array<SpaceProps> = []
+        tempBoard.forEach(obj => {
+            const newObj = {...obj}
+            if (newObj.position === pos) {
+                newObj.player = player
+            }
+            if (status.over) {
+                if (!status.winner) {
+                    newObj.draw = true
+                    newBoard.push(newObj)
+                } else {
+                    for (const win of status.wins) {
+                        if (win.some(ind => ind === newObj.position)) {
+                            newObj.winPos = true
+                        }
+                    }
+                }
+            }
+            newBoard.push(newObj)
+        })
+        setBoard(newBoard)
+        setPlayer(player === 'x' ? 'o' : 'x')
+        setStatus(status)
+    }
 
     const click = (pos: number) => {
-        if (board[pos] || state.game.over) {
+        if (gameStatus.over) {
             return
         }
-        const newBoard = [...board]
-        const newGame = {...state.game, turn: turn === 'x' ? 'o' : 'x'}
-        newBoard[pos] = turn
-        dispatch({ type: SET_BOARD, payload: newBoard })
-        dispatch({ type: SET_GAME, payload: newGame })
+        makeMove(pos)
     }
-    useEffect(() => {
-        const renderBoard = [...state.board]
-        const results = gameOver(renderBoard, 'small')
-            if (results.over) {
-                const newBoard = [...board]
-                const newGame = {...state.game}
-                console.log('game is over')
-                const newObjs = [...spaceObjs]
-                newGame.over = true
-                if (results.winner) {
-                    newGame.winner = results.winner
-                    results.wins.forEach((win) => {
-                        for (const n of win) {
-                            const i = newObjs.findIndex((obj) => obj.position === n)
-                            newObjs[i].winPos = true
-                        }
-                    })
-                    console.log('win!')
-                    console.log(newObjs)
-                    setSpaceObjs(newObjs)
-                } else {
-                    console.log('draw!')
-                    newObjs.forEach((obj) => (obj.draw = true))
-                    setSpaceObjs(newObjs)
-                }
-                return
-            }
-        setSpaceObjs(genSpaces(renderBoard, 'small', click, state.game.pvp, state.game.draw))
-    }, [state.board])
 
-    useEffect(() => {
-        if (!spaceObjs) {
-            return
-        }
-        console.log(spaceObjs)
-        setSpaceJsx(spaceObjs.map((obj, i) => smallMap(obj, i)))
-    }, [spaceObjs])
     return (
-			<div className='small'>
-				{spaceJsx}
-			</div>
+			<>
+				<Options opts={{size, mode}} reset={reset} started={gameStatus.started} />
+				<div className='small'>
+					{board ? board.map((space, i) => {
+                        space.click = click
+                        return <Space {...space} key={'s-' + i} />
+                        }
+					) : null}
+				</div>
+				)
+			</>
 		)
 }
 

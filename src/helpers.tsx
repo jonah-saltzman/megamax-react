@@ -43,8 +43,8 @@ export const borderClasses = (borders: Borders, size: BoardSize): string => {
     return classes.join(' ')
 }
 
-export const smallMap = (options: SpaceProps, i: number) => {
-    const { borders } = options
+export const smallMap = (i: number) => {
+    const borders = {...defaultBorders}
     if (i % 3 === 0) {
         borders.left = false
     }
@@ -57,8 +57,7 @@ export const smallMap = (options: SpaceProps, i: number) => {
     if (i > 5) {
         borders.bottom = false
     }
-    const props = {...options, borders: {...borders}}
-    return <Space {...props} />
+    return borders
 }
 
 const smallConditions = [
@@ -87,12 +86,21 @@ const bigConditions = [
 	[4, 8, 12, 16, 20],
 ]
 
+export const toArray = (objects: Array<SpaceProps>, size: BoardSize): Array<Player> => {
+    const arr = Array(size === 'small' ? 9 : 25)
+    objects.forEach(obj => {
+        arr[obj.position] = obj.player
+    })
+    return arr
+}
+
 export const gameOver = (board: Board, size: BoardSize): Results => {
     const conditions = size === 'small' ? smallConditions : bigConditions
     const results: Results = {
         over: false,
         winner: null,
-        wins: []
+        wins: [],
+        started: true
     }
     conditions.forEach(condition => {
         if (
@@ -108,4 +116,22 @@ export const gameOver = (board: Board, size: BoardSize): Results => {
         results.over = true
     }
     return results
+}
+
+export const blankBoard = (size: BoardSize, mode: Mode): Array<SpaceProps> => {
+    const board = []
+    for (let i = 0; i < (size === 'small' ? 9 : 25); i++) {
+        const obj: SpaceProps = {
+            winPos: false,
+            player: null,
+            position: i,
+            click: null,
+            borders: {...defaultBorders},
+            size,
+            pvp: mode === 'pvp',
+            draw: false
+        }
+        board.push(obj)
+    }
+    return board
 }

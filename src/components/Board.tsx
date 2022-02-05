@@ -3,11 +3,9 @@ import { Container } from "react-bootstrap";
 import Small from "./Small";
 import Big from "./Big";
 
-const Board = (props: BoardOpts) => {
+const Board = () => {
     return (
-        props.size === 'small'
-            ? <Small />
-            : <Big />
+        <Small />
     )
 }
 
