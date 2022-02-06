@@ -1,10 +1,10 @@
 import React from 'react'
-import { borderClasses, smallMap } from '../helpers'
+import { borderClasses, smallMap, bigMap } from '../helpers'
 
 const Space = (props: SpaceProps) => {
     const { click, position, size, player, pvp, draw, winPos } = props
-    console.log('click: ', click)
-    const borders = smallMap(position)
+    const mapper = size === 'small' ? smallMap : bigMap
+    const borders = mapper(position)
     let classes = borderClasses(borders, size) + ' space'
     if (draw) {
         classes += ' draw'

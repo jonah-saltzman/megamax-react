@@ -1,19 +1,17 @@
-import React, { useState, useEffect, useReducer } from 'react'
-import { Container } from 'react-bootstrap'
+import React from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Nav from './Nav'
-import Game from './components/Game'
+import Board from './components/Board'
 
 const App = () => {
-    //const [state, dispatch] = useReducer(reducer, initialState)
 	return (
 		<>
 			<ToastContainer />
 			<Nav />
 			<div className='game'>
-				<Game />
+				<Board />
 			</div>
 		</>
 	)   

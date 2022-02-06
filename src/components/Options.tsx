@@ -1,22 +1,22 @@
-import React, { useEffect, useState, createRef } from "react";
-import { Button, ToggleButton, ToggleButtonCheckboxProps, ToggleButtonGroup } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 
 const Options = (props: OptHandlers) => {
-    const { reset, started, opts } = props
+    const { reset, started, change } = props
     const [ mode, setMode ] = useState<Mode>('pvp')
-    const [ size, setSize ] = useState<Array<BoardSize>>(['small'])
-    const modeRef = createRef<HTMLAnchorElement>()
-    const sizeRef = createRef()
+    const [ size, setSize ] = useState<BoardSize>('small')
 
     const changeMode = (value: Mode) => {
         setMode(value)
     }
 
+    const changeSize = (value: BoardSize) => {
+        setSize(value)
+    }
+
     useEffect(() => {
-        console.log('mode: ', mode)
-        console.log(modeRef)
-        modeRef.current.blur()
-    }, [mode])
+        change({mode, size})
+    }, [mode, size])
 
     return (
 			<>
@@ -28,11 +28,11 @@ const Options = (props: OptHandlers) => {
 						Reset
 					</Button>
 					<ToggleButtonGroup
-                        ref={modeRef}
+                        className='grp'
 						onChange={changeMode}
 						type='radio'
-						name='options'
-						defaultValue={1}>
+						name='mode-options'
+						defaultValue={'pvp'}>
 						<ToggleButton
 							variant={mode === 'ai' ? 'outline-primary' : 'primary'}
 							id='tbg-radio-1'
@@ -40,40 +40,32 @@ const Options = (props: OptHandlers) => {
 							PVP
 						</ToggleButton>
 						<ToggleButton
-							variant={mode === 'pvp' ? 'outline-primary' : 'primary'}
+							variant={mode === 'pvp' ? 'outline-danger' : 'danger'}
 							id='tbg-radio-2'
 							value={'ai'}>
 							vs AI
 						</ToggleButton>
 					</ToggleButtonGroup>
-					<ToggleButtonGroup type='checkbox' className='size grp' value={size}>
+					<ToggleButtonGroup
+                        className='grp'
+						onChange={changeSize}
+						type='radio'
+						name='size-options'
+						defaultValue={'small'}>
 						<ToggleButton
-							// checked={size === 'small'}
-							key='t-3'
-							variant='outline-primary'
+							variant={size === 'large' ? 'outline-primary' : 'primary'}
+							id='tbg-radio-3'
 							value={'small'}>
 							3x3
 						</ToggleButton>
 						<ToggleButton
-							// checked={size === 'large'}
-							key='t-4'
-							variant='outline-success'
+							variant={size === 'small' ? 'outline-success' : 'success'}
+							id='tbg-radio-4'
 							value={'large'}>
 							5x5
 						</ToggleButton>
 					</ToggleButtonGroup>
 				</div>
-				{/* <ToggleButtonGroup
-					type='radio'
-					defaultValue={'pvp'}
-					onChange={setMode}>
-					<ToggleButton id='tbg-btn-1' value={'pvp'}>
-						PVP
-					</ToggleButton>
-					<ToggleButton id='tbg-btn-2' value={'ai'}>
-						vs AI
-					</ToggleButton>
-				</ToggleButtonGroup> */}
 			</>
 		)
 }

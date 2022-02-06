@@ -5,16 +5,10 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 module.exports = {
 	entry: '/src/index.tsx',
 	output: {
-		path: path.resolve(__dirname, 'dist'),
+		path: path.resolve(__dirname, 'prod'),
 	},
-	devServer: {
-		static: {
-			directory: path.join(__dirname, 'public'),
-		},
-		compress: true,
-		port: 9000,
-		open: true,
-	},
+    mode: 'production',
+    devtool: 'source-map',
 	module: {
 		rules: [
 			{
@@ -32,9 +26,18 @@ module.exports = {
 				include: [
 					path.resolve(__dirname, 'src'),
 					path.resolve(__dirname, 'node_modules/react-toastify/dist'),
-					path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.min.css'),
-                    path.resolve(__dirname, 'node_modules/react-grid-layout/css/styles.css'),
-                    path.resolve(__dirname, 'node_modules/react-resizable/css/styles.css')
+					path.resolve(
+						__dirname,
+						'node_modules/bootstrap/dist/css/bootstrap.min.css'
+					),
+					path.resolve(
+						__dirname,
+						'node_modules/react-grid-layout/css/styles.css'
+					),
+					path.resolve(
+						__dirname,
+						'node_modules/react-resizable/css/styles.css'
+					),
 				],
 				use: ['style-loader', 'css-loader'],
 			},
@@ -47,9 +50,9 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebPackPlugin({
-			template: './src/index.html'
+			template: './src/index.html',
 		}),
-        new FaviconsWebpackPlugin('./src/logo.png')
+		new FaviconsWebpackPlugin('./src/logo.png'),
 	],
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.jsx'],

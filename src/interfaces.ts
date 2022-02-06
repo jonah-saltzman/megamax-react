@@ -58,7 +58,7 @@ interface SpaceProps {
 interface OptHandlers {
 	reset: Function
 	started: boolean
-	opts: Options
+	change: Function
 }
 
 interface Options {
@@ -83,3 +83,8 @@ interface Move {
 }
 
 type Mode = 'pvp' | 'ai'
+
+interface CompMove {
+    to: number
+    moves: number
+}

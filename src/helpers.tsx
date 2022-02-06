@@ -1,5 +1,9 @@
 import React from "react"
-import Space from "./components/Space"
+
+import { smallConditions, bigConditions } from "./default"
+import { gen_boards } from "./3x3minimax"
+
+const awsURL = 'https://09y3qsciu8.execute-api.us-east-1.amazonaws.com/ab'
 
 const defaultBorders = {
     top: true,
@@ -8,9 +12,7 @@ const defaultBorders = {
     left: true
 }
 
-export const getMoves = (board: Board) => {
-
-}
+const corners = [0, 4, 20, 24]
 
 export const genSpaces = (board: Board, size: BoardSize, click: Function, pvp: boolean, draw: boolean): Array<SpaceProps> => {
     return board.map((player, i) => ({
@@ -60,31 +62,22 @@ export const smallMap = (i: number) => {
     return borders
 }
 
-const smallConditions = [
-	[0, 1, 2],
-	[3, 4, 5],
-	[6, 7, 8],
-	[0, 3, 6],
-	[1, 4, 7],
-	[2, 5, 8],
-	[0, 4, 8],
-	[2, 4, 6],
-]
-
-const bigConditions = [
-	[0, 1, 2, 3, 4],
-	[5, 6, 7, 8, 9],
-	[10, 11, 12, 13, 14],
-	[15, 16, 17, 18, 19],
-	[20, 21, 22, 23, 24],
-	[0, 5, 10, 15, 20],
-	[1, 6, 11, 16, 21],
-	[2, 7, 12, 17, 22],
-	[3, 8, 13, 18, 23],
-	[4, 9, 14, 19, 24],
-	[0, 6, 12, 18, 24],
-	[4, 8, 12, 16, 20],
-]
+export const bigMap = (i: number) => {
+	const borders = { ...defaultBorders }
+	if (i % 5 === 0) {
+		borders.left = false
+	}
+	if (i % 5 === 4) {
+		borders.right = false
+	}
+	if (i < 5) {
+		borders.top = false
+	}
+	if (i > 19) {
+		borders.bottom = false
+	}
+	return borders
+}
 
 export const toArray = (objects: Array<SpaceProps>, size: BoardSize): Array<Player> => {
     const arr = Array(size === 'small' ? 9 : 25)
@@ -134,4 +127,37 @@ export const blankBoard = (size: BoardSize, mode: Mode): Array<SpaceProps> => {
         board.push(obj)
     }
     return board
+}
+
+export const aws_alg = async (board: Board): Promise<CompMove> => {
+    if (board[12] === null) {
+        return {to: 12, moves: 1}
+    }
+    let quickMoves = 0
+    const openCorners: Array<number> = []
+    corners.forEach(i => {
+        if (board[i] === null) {
+            quickMoves += 1
+            openCorners.push(i)
+        }
+    })
+    if (openCorners.length > 0) {
+        const quickMove = openCorners[Math.floor(Math.random() * openCorners.length)]
+        return {to: quickMove, moves: quickMove}
+    }
+    const body = {board: board}
+    const response = await fetch(awsURL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+    })
+    if (response.status !== 200) {
+        const validMoves = gen_boards(board, 'o')
+        const randMove = validMoves[Math.floor(Math.random() * validMoves.length)]
+        return {to: randMove.to, moves: 1}
+    }
+    const data = await response.json()
+    const move = data.moves[Math.floor(Math.random() * data.moves.length)]
+    const checked = data.checked
+    return {to: move.to, moves: checked}
 }
