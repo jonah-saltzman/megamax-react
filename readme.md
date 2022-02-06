@@ -8,6 +8,7 @@ algorithm it uses to make the best move for the computer player. MegaMax is a si
 The deployed client can be accessed at [https://mega.jonahsaltzman.dev](https://mega.jonahsaltzman.dev)
 
 ## Application
+(Note: some of the below may be outdated, as I recently refactored MegaMax to use React and integratw with AWS)
 
 The MegaMax application consists of: 
 
