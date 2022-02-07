@@ -1,37 +1,8 @@
-interface AuthInterface {
-	authed: boolean
-	email: string
-	token: string
-}
 
-interface GameInterface {
-	started: boolean
-	turn: Player
-	over: boolean
-	winner: Player
-	moves: number
-	easy: boolean
-	size: BoardSize
-    pvp: boolean,
-    draw: boolean
-}
-
-type BoardState = Array<Player>
-
-interface StateInterface {
-	auth: AuthInterface
-	game: GameInterface
-    board: Board
-}
 
 type Player = 'x' | 'o' | null
 
 type BoardSize = 'small' | 'large'
-
-type Action =
-	| { type: 'SET_AUTH'; payload: AuthInterface }
-	| { type: 'SET_GAME'; payload: GameInterface }
-	| { type: 'SET_BOARD'; payload: Board }
 
 interface BoardOpts {
     size: BoardSize

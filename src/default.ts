@@ -1,60 +1,6 @@
-export const defaultAuth: AuthInterface = {
-	authed: false,
-	email: null,
-	token: null,
-}
+export const defaultSmallBoard: Board = Array(9).fill(null)
 
-export const defaultGame: GameInterface = {
-	started: true,
-	turn: 'x',
-	over: false,
-	winner: null,
-	moves: 0,
-	easy: null,
-	size: 'small',
-    pvp: true,
-    draw: false
-}
-
-export const defaultSmallBoard: Board = [
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-]
-
-export const defaultLargeBoard: Board = [
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-]
+export const defaultLargeBoard: Board = Array(25).fill(null)
 
 export const smallConditions = [
 	[0, 1, 2],
