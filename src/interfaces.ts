@@ -4,10 +4,6 @@ type Player = 'x' | 'o' | null
 
 type BoardSize = 'small' | 'large'
 
-interface BoardOpts {
-    size: BoardSize
-}
-
 interface Borders {
     top: boolean
     right: boolean
@@ -38,8 +34,6 @@ interface Options {
 }
 
 type Board = Array<Player>
-
-type R = Array<JSX.Element>
 
 interface Results {
     over: boolean
