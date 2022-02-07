@@ -24,6 +24,7 @@ const Board = () => {
         setBoard(blankBoard(size, mode))
         setPlayer('x')
         setStatus(defaultStatus)
+        toast.dismiss()
     }
 
     const changeOptions = (opts: Options) => {
